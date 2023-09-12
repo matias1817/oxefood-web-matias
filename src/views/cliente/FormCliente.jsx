@@ -1,9 +1,9 @@
-import React from "react";
-import InputMask from 'react-input-mask';
-import { Link } from "react-router-dom";
-import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+ import React from "react";
+ import InputMask from 'react-input-mask';
+ import { Link } from "react-router-dom";
+ import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 
-export default function FormCliente () {
+export default function FormCliente() {
 
     return (
 
@@ -89,7 +89,7 @@ export default function FormCliente () {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                <Link to=''>Voltar</Link>
+                                Voltar
                             </Button>
                                 
                             <Button
