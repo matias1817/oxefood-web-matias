@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+ import React from "react";
+ import InputMask from 'react-input-mask';
+ import { Link } from "react-router-dom";
+ import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+
+export default function FormCliente() {
+=======
 import React, { useState } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
@@ -31,20 +39,21 @@ export default function FormCliente() {
 		})
 	}
 
+>>>>>>> aef69de70028506bf5d68c4f3aa481ca285bd559
 
     return (
 
         <div>
-
-            <div style={{marginTop: '3%'}}>
+            <MenuSistema />
+            <div style={{ marginTop: '3%' }}>
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    <h2> <span style={{ color: 'darkgray' }}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     <Divider />
 
-                    <div style={{marginTop: '4%'}}>
+                    <div style={{ marginTop: '4%' }}>
 
                         <Form>
 
@@ -63,33 +72,45 @@ export default function FormCliente() {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='CPF'>
+                                    label='CPF'
+                                    
+                                >
                                     <InputMask
                                         required
                                         mask="999.999.999-99"
-                                    /> 
+                                        value={cpf}
+                                    onChange={e => setCpf(e.target.value)}
+                                    />
                                 </Form.Input>
 
                             </Form.Group>
-                            
+
                             <Form.Group>
 
                                 <Form.Input
                                     fluid
                                     label='Fone Celular'
-                                    width={6}>
-                                    <InputMask 
+                                    width={6}
+                                   
+                                >
+                                    <InputMask
                                         mask="(99) 9999.9999"
-                                    /> 
+                                         value={foneCelular}
+                                    onChange={e => setFoneCelular(e.target.value)}
+                                    />
                                 </Form.Input>
 
                                 <Form.Input
                                     fluid
                                     label='Fone Fixo'
-                                    width={6}>
-                                    <InputMask 
+                                    width={6}
+                                    
+                                >
+                                    <InputMask
                                         mask="(99) 9999.9999"
-                                    /> 
+                                        value={foneFixo}
+                                    onChange={e => setFoneFixo(e.target.value)}
+                                    />
                                 </Form.Input>
 
                                 <Form.Input
@@ -98,18 +119,20 @@ export default function FormCliente() {
                                     width={6}
                                   
                                 >
-                                    <InputMask 
-                                        mask="99/99/9999" 
+                                    <InputMask
+                                        mask="99/99/9999"
                                         maskChar={null}
-                                        placeholder="Ex: 20/03/1985"
-                                    /> 
+                                        placeholder="Ex: 20/03/1985" 
+                                         value={dataNascimento}
+                                    onChange={e => setDataNascimento(e.target.value)}
+                                    />
                                 </Form.Input>
 
                             </Form.Group>
-                        
+
                         </Form>
-                        
-                        <div style={{marginTop: '4%'}}>
+
+                        <div style={{ marginTop: '4%' }}>
 
                             <Button
                                 type="button"
@@ -120,9 +143,9 @@ export default function FormCliente() {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                <Link to=''>Voltar</Link>
+                                Voltar
                             </Button>
-                                
+
                             <Button
                                 inverted
                                 circular
@@ -130,7 +153,6 @@ export default function FormCliente() {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
-                                onClick={() => salvar()}
                                 onClick={() => salvar()}
                             >
                                 <Icon name='save' />
@@ -141,7 +163,7 @@ export default function FormCliente() {
                         </div>
 
                     </div>
-                    
+
                 </Container>
             </div>
         </div>

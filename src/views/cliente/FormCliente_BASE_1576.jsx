@@ -1,36 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import InputMask from 'react-input-mask';
+import { Link } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
-import MenuSistema from '../../MenuSistema';
-import axios from "axios";
 
-export default function FormCliente() {
-    const [nome, setNome] = useState();
-    const [cpf, setCpf] = useState();
-    const [dataNascimento, setDataNascimento] = useState();
-    const [foneCelular, setFoneCelular] = useState();
-    const [foneFixo, setFoneFixo] = useState();
-    
-    function salvar() {
-
-		let clienteRequest = {
-		     nome: nome,
-		     cpf: cpf,
-		     dataNascimento: dataNascimento,
-		     foneCelular: foneCelular,
-		     foneFixo: foneFixo
-		}
-	console.log()
-		axios.post("http://localhost:8080/api/cliente", clienteRequest)
-		.then((response) => {
-            
-		     console.log('Cliente cadastrado com sucesso.')
-		})
-		.catch((error) => {
-		     console.log('Erro ao incluir o um cliente.')
-		})
-	}
-
+export default function FormCliente () {
 
     return (
 
@@ -55,9 +28,6 @@ export default function FormCliente() {
                                     fluid
                                     label='Nome'
                                     maxLength="100"
-                                    value={nome}
-                                    onChange={e => setNome(e.target.value)}
-
                                 />
 
                                 <Form.Input
@@ -96,7 +66,6 @@ export default function FormCliente() {
                                     fluid
                                     label='Data Nascimento'
                                     width={6}
-                                  
                                 >
                                     <InputMask 
                                         mask="99/99/9999" 
@@ -130,13 +99,10 @@ export default function FormCliente() {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
-                                onClick={() => salvar()}
-                                onClick={() => salvar()}
                             >
                                 <Icon name='save' />
                                 Salvar
                             </Button>
-
 
                         </div>
 
