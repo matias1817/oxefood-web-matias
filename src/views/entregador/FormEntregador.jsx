@@ -3,7 +3,7 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, FormGroup, Icon, Select } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
-export default function FormProduto() {
+export default function FormCliente() {
 
     const estados = [
         { key: 'PE', value: 'PE', text: 'Pernambuco' },

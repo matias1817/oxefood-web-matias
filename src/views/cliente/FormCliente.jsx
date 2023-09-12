@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
@@ -131,7 +132,7 @@ export default function FormCliente() {
                                 color='blue'
                                 floated='right'
                                 onClick={() => salvar()}
-                                onClick={() => salvar()}
+                                
                             >
                                 <Icon name='save' />
                                 Salvar
