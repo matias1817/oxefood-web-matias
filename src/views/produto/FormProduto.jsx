@@ -1,23 +1,47 @@
-import React from "react";
+import React, {useState}from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, FormGroup, Icon, Select } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
+import axios from "axios";
 
 export default function FormProduto() {
 
-    const estados = [
-        { key: 'PE', value: 'PE', text: 'Pernambuco' },
-        { key: 'PB', value: 'PB', text: 'Paraiba' }
-      ]
-    return (
+    const [titulo, SetTitulo] = useState('')
+    const [codigo, SetCodigo] = useState('')
+    const [descricao, SetDescricao] = useState('')
+    const [valorUnitario, SetValorUnitario] = useState('')
+    const [tempoMax, SetTempoMax] = useState('')
+    const [tempoMin, SetTempoMin] = useState('')
 
+    function salvar() {
+
+		let produtoRequest = {
+		     titulo: titulo,
+		     codigo: codigo,
+		     descricao: descricao,
+		     valorUnitario: valorUnitario,
+		     tempoMax: tempoMax,
+             tempoMin: tempoMin
+		}
+	console.log()
+		axios.post("http://localhost:8080/api/produto", produtoRequest)
+		.then((response) => {
+            
+		     console.log('produto cadastrado com sucesso.')
+		})
+		.catch((error) => {
+		     console.log('Erro ao incluir o produto.')
+		})
+	}
+
+    return (
         <div>
   <MenuSistema />
             <div style={{ marginTop: '3%' }}>
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{ color: 'darkgray' }}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    <h2> <span style={{ color: 'darkgray' }}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     <Divider />
 
@@ -31,175 +55,89 @@ export default function FormProduto() {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Nome'
+                                    label='Titulo'
                                     maxLength="100"
+                                    value={titulo}
+                                    onChange={e => SetTitulo(e.target.value)}
+
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='CPF'>
+                                    label='Codigo de Produto'>
                                     <InputMask
                                         required
-                                        mask="999.999.999-99"
+                                        mask="9999"
+                                        value={codigo}
+                                        onChange={e => SetCodigo(e.target.value)}
+    
                                     />
                                 </Form.Input>
-
-                                <Form.Input
-
-                                    fluid
-                                    label='RG'>
-                                    <InputMask
-
-                                        mask="99.999.999"
-                                    />
-                                </Form.Input>
-
                             </Form.Group>
 
                             <Form.Group>
-                                <Form.Input
+                                <Form.TextArea
                                     fluid
-                                    label='Data Nascimento'
+                                    label='Descricao'
+                                    style={{ width: "80.5em" }}
+                                    value={descricao}
+                                    onChange={e => SetDescricao(e.target.value)}
 
-                                    width={6}
                                 >
-                                    <InputMask
-                                        mask="99/99/9999"
-                                        maskChar={null}
-                                        placeholder="Ex: 20/03/1985"
-                                    />
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    required
-                                    label='Fone Celular'
-                                    width={6}>
-                                    <InputMask
-                                        mask="(99) 9999.9999"
-                                    />
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Fone Fixo'
-                                    width={6}>
-                                    <InputMask
-                                        mask="(99) 9999.9999"
-                                    />
-                                </Form.Input>
-
-                                <Form.Input
-
-                                    fluid
-                                    label='QTD de Entregas Realizadas'>
-                                    <InputMask
-                                        required
-                                        mask="9999"
-                                    />
-                                </Form.Input>
-
-                                <Form.Input
-
-                                    fluid
-                                    label='Valor por Frete'>
-                                    <InputMask
-                                        required
-                                        mask="999"
-                                    />
-                                </Form.Input>
-
+                                </Form.TextArea>
 
                             </Form.Group>
 
                             <FormGroup>
 
 
-                                <Form.Input
-                                    required
-                                    fluid
-                                    label='Rua'
-                                    maxLength="300"
-                                    style={{ width: "67em" }}
-                                >
-
-                                </Form.Input>
 
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='número'
-                                    style={{ width: "12.5em" }}
+                                    label='Valor Unítario'
+                                    style={{ width: "26em" }}
+
                                 >
                                     <InputMask
                                         required
                                         mask="9999"
+                                        value={valorUnitario}
+                                        onChange={e => SetValorUnitario(e.target.value)}
+    
                                     />
                                 </Form.Input>
 
-                            </FormGroup>
-                            <FormGroup>
-
-
-                            <Form.Input
-                                    required
-                                    fluid
-                                    label='Bairro'
-                                    maxLength="300"
-                                    style={{ width: "40em" }}
-                                >
-
-                                </Form.Input>
-                                
-                                
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Cidade'
-                                    maxLength="300"
-                                    style={{ width: "30em" }}
-                                >
-
-                                </Form.Input>
-                                
-                                
-
-                                <Form.Input
-                                    required
-                                    fluid
-                                    label='CEP'
-                                    style={{ width: "8.5em" }}
+                                    label='Tempo de Entrega Minimo em Minutos'
+                                    style={{ width: "26em" }}
                                 >
                                     <InputMask
                                         required
-                                        mask="9999"
+                                        value={tempoMin}
+                                        onChange={e => SetTempoMin(e.target.value)}
+    
+                                        mask="99"
                                     />
                                 </Form.Input>
 
-                            </FormGroup>
-                            <FormGroup>
-                            <Form.Select
-                        fluid
-                        label='UF'
-                        placeholder='UF'
-                        options={estados}
-                        required={true}
-                        value={estados}
-                        style={{width: "80.5em"}}
-                    />
-                            </FormGroup>
-
-                            <FormGroup>
-
-                                <Form.Input  required
+                                <Form.Input
+                                    required
                                     fluid
-                                    label='Complemento'
-                                    maxLength="100"
-                                    style={{width:"80.5em"}}
-                                    >
-                                
+                                    label='Tempo de Entrega Maximo em Minutos'
+                                    style={{ width: "26.5em" }}
+                                >
+                                    <InputMask
+                                        required
+                                        value={tempoMax}
+                                        onChange={e => SetTempoMax(e.target.value)}
+    
+                                        mask="99"
+                                    />
                                 </Form.Input>
 
                             </FormGroup>
@@ -228,6 +166,7 @@ export default function FormProduto() {
                                 labelPosition='left'
                                 color='blue'
                                 floated='right'
+                                onClick={() => salvar()}
                             >
                                 <Icon name='save' />
                                 Salvar
