@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 
+
 import axios from "axios";
 
 export default function FormCliente() {
@@ -137,7 +138,8 @@ export default function FormCliente() {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                <Link to=''>Voltar</Link>
+                                <Link to={'/list-cliente'}>Voltar</Link>
+
                             </Button>
                                 
                             <Button
