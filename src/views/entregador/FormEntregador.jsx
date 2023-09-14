@@ -3,6 +3,7 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 import axios from "axios";
+import { Link, useLocation, redirect, useNavigation  } from "react-router-dom";
 
 export default function FormEntregador() {
     
@@ -80,6 +81,25 @@ export default function FormEntregador() {
         axios.post("http://localhost:8080/api/entregador", entregadorRequest)
             .then((response) => {
                 console.log('Entregador cadastrado com sucesso.')
+                setBairro('')
+                setNome('')
+                setRg('')
+                setDataNascimento('')
+                setFoneCelular('')
+                setFoneFixo('')
+                setBairro('')
+                setCidade('')
+                setQtdEntregas('')
+                setValorFrete('')
+                setRua('')
+                setComplemento('')
+                setNumero('')
+                setCep('')
+                setCpf('')
+                
+                window.location.replace("/list-entregador")
+
+                
             })
             .catch((error) => {
                 console.log('Erro ao incluir o um entregador.')
@@ -290,7 +310,7 @@ export default function FormEntregador() {
                                 color='orange'
                             >
                                 <Icon name='reply' />
-                                Voltar
+                                <Link to={'/list-entregador'}>Voltar</Link>
                             </Button>
 
                             <Button
