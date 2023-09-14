@@ -64,16 +64,16 @@ export default function FormEntregador() {
             dataNascimento: dataNascimento,
             foneCelular: foneCelular,
             foneFixo: foneFixo,
-            bairro: bairro,
-            cep: cep,
-            uf: selectedEstado,
+            enderecoBairro: bairro,
+            enderecoCep: cep,
+            enderecoUf: selectedEstado,
             ativo: ativo,
-            cidade: cidade,
-            qtdEntregas: qtdEntregas,
+            enderecoCidade: cidade,
+            qtdEntregasRealizadas: qtdEntregas,
             valorFrete: valorFrete,
-            rua: rua,
-            complemento: complemento,
-            numero: numero
+            enderecoRua: rua,
+            enderecoComplemento: complemento,
+            enderecoNumero: numero
         };
 
         console.log()
@@ -223,7 +223,19 @@ export default function FormEntregador() {
                                 style={{ width: "30em" }}
                                 onChange={e => setCidade(e.target.value)}
                                 value={cidade} />
-
+                        <Form.Input
+                                    required
+                                    fluid
+                                    label='CEP'
+                                    style={{ width: "8.5em" }}>
+                                <InputMask
+                                    required
+                                    mask="9999-999"
+                                    value={cep}
+                                    onChange={e => setCep(e.target.value)}
+                             
+                                />
+                            </Form.Input>
 
                         </Form.Group>
                         <Form.Group>

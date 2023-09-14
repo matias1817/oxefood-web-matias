@@ -20,8 +20,8 @@ export default function FormProduto() {
 		     codigo: codigo,
 		     descricao: descricao,
 		     valorUnitario: valorUnitario,
-		     tempoMax: tempoMax,
-             tempoMin: tempoMin
+		     tempoEntregaMaximo: tempoMax,
+             tempoEntregaMinimo: tempoMin
 		}
 	console.log()
 		axios.post("http://localhost:8080/api/produto", produtoRequest)
