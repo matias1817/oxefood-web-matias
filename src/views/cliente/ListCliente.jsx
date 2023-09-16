@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table, Header, Modal } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
 export default function ListCliente() {
-
+    const {state} = useLocation()
     const [lista, setLista] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [idRemover, setIdRemover] = useState();

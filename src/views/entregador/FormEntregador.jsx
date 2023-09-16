@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 import axios from "axios";
-import { Link, useLocation, redirect, useNavigation  } from "react-router-dom";
+ 
+import { Link, useLocation} from "react-router-dom";
 
 export default function FormEntregador() {
     
+    const {state} = useLocation()
     
 
     const [nome, setNome] = useState('');
@@ -25,6 +27,58 @@ export default function FormEntregador() {
     const [complemento, setComplemento] = useState('');
     const [selectedEstado, setSelectedEstado] = useState('PE');
     const [ativo, setAtivo] = useState(true);
+    const [idEntregador, setIdEntregador] = useState()
+  
+
+    function formatarData(dataParam) {
+
+        if (dataParam === null || dataParam === '' || dataParam === undefined) {
+            return ''
+        }
+    
+        let arrayData = dataParam.split('-');
+        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
+    }
+    
+    // function formatarData2(dataParam) {
+
+    //     if (dataParam === null || dataParam === '' || dataParam === undefined) {
+    //         return ''
+    //     }
+    
+    //     let arrayData = dataParam.split('-');
+    //     return arrayData[0] + '/' + arrayData[1] + '/' + arrayData[2];
+    // }
+
+    useEffect(() => {
+        
+       
+        if (state != null && state.id != null) {
+            axios.get("http://localhost:8080/api/entregador/" + state.id)
+                .then((response) => {
+                    console.log(response.data)
+                    setIdEntregador(response.data.id);
+                    setNome(response.data.nome);
+                    setRg(response.data.rg);
+                    setDataNascimento(formatarData(response.data.dataNascimento));
+                    setFoneCelular(response.data.foneCelular);
+                    setValorFrete(response.data.valorFrete);
+                    setRua(response.data.enderecoRua);
+                    setNumero(response.data.enderecoNumero);
+                    setBairro(response.data.enderecoBairro);
+                    setCidade(response.data.enderecoCidade);
+                    setCep(response.data.enderecoCep);
+                    setComplemento(response.data.enderecoComplemento);
+                    setSelectedEstado(response.data.enderecoUf);
+                    setAtivo(response.data.ativo);
+                    setFoneFixo(response.data.foneFixo);
+                    setQtdEntregas(response.data.qtdEntregasRealizadas)
+                    
+                })
+        }
+    }, [state])
+
+
     
     const estados = [
         { key: 'AC', value: 'AC', text: 'Acre' },
@@ -78,7 +132,18 @@ export default function FormEntregador() {
         };
 
         console.log()
-        axios.post("http://localhost:8080/api/entregador", entregadorRequest)
+        if (idEntregador != null){
+            axios.put("http://localhost:8080/api/entregador/" + idEntregador, entregadorRequest)
+		.then((response) => {
+		     console.log('entregadoe cadastrado com sucesso.')
+             window.location.replace("/list-entregador")
+		})
+		.catch((error) => {
+		     console.log(error)
+		})
+
+        } else {
+             axios.post("http://localhost:8080/api/entregador", entregadorRequest)
             .then((response) => {
                 console.log('Entregador cadastrado com sucesso.')
                 setBairro('')
@@ -98,12 +163,13 @@ export default function FormEntregador() {
                 setCpf('')
                 
                 window.location.replace("/list-entregador")
-
-                
-            })
+})
             .catch((error) => {
                 console.log('Erro ao incluir o um entregador.')
             })
+        }
+
+       
     }
 
     return (
@@ -111,7 +177,13 @@ export default function FormEntregador() {
             <MenuSistema />
             <div style={{ marginTop: '3%' }}>
             <Container textAlign='justified'>
-                <h2> <span style={{ color: 'darkgray' }}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+
+            { idEntregador === undefined &&
+    <h2> <span style={{color: 'darkgray'}}> Entegador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+}
+{ idEntregador !== undefined &&
+    <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+}
                 <Divider />
 
                 <div style={{ marginTop: '4%' }}>
