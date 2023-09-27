@@ -15,6 +15,10 @@ export default function FormProduto() {
     const [tempoMin, SetTempoMin] = useState('')
     const { state } = useLocation();
     const [idProduto, setIdProduto] = useState();
+    const [listaCategoria, setListaCategoria] = useState([]);
+   const [idCategoria, setIdCategoria] = useState();
+
+
 
     
     useEffect(() => {
@@ -29,14 +33,22 @@ export default function FormProduto() {
                     SetValorUnitario(response.data.valorUnitario)
                     SetTempoMax(response.data.tempoEntregaMaximo)
                     SetTempoMin(response.data.tempoEntregaMinimo)
+                    setIdCategoria(response.data.categoria.id)
                 })
         }
+        axios.get("http://localhost:8080/api/categoriaproduto")
+        .then((response) => {
+            const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+            setListaCategoria(dropDownCategorias);
+        })
+
     }, [state])
 
 
     function salvar() {
 
 		let produtoRequest = {
+             idCategoria: idCategoria,
 		     titulo: titulo,
 		     codigo: codigo,
 		     descricao: descricao,
@@ -50,8 +62,11 @@ export default function FormProduto() {
 		.then((response) => {
             
 		     console.log('produto cadastrado com sucesso.')
+             window.location.replace("/list-produto")
+
 		})
 		.catch((error) => {
+
 		     console.log('Erro ao incluir o produto.')
 		})
     } else {
@@ -59,6 +74,7 @@ export default function FormProduto() {
 		.then((response) => {
             
 		     console.log('produto cadastrado com sucesso.')
+             window.location.replace("/list-produto")
 		})
 		.catch((error) => {
 		     console.log('Erro ao incluir o produtos.')
@@ -179,6 +195,19 @@ export default function FormProduto() {
                                 </Form.Input>
 
                             </FormGroup>
+                            <Form.Select
+                                required
+                                fluid
+                                tabIndex='3'
+                                placeholder='Selecione'
+                                label='Categoria'
+                                options={listaCategoria}
+                                value={idCategoria}
+                                onChange={(e, { value }) => {
+                                    setIdCategoria(value)
+                                }}
+                            />
+
 
 
                         </Form>

@@ -75,6 +75,8 @@ return(
                       <Table.Header>
                           <Table.Row>
                               <Table.HeaderCell>Codigo</Table.HeaderCell>
+                              <Table.HeaderCell>Categoria</Table.HeaderCell>
+
                               <Table.HeaderCell>Descrição</Table.HeaderCell>
                               <Table.HeaderCell>Tempo de Entrega Maximo</Table.HeaderCell>
                               <Table.HeaderCell>Tempo de Entrega Minimo</Table.HeaderCell>
@@ -90,6 +92,8 @@ return(
 
                               <Table.Row key={produto.id}>
                                   <Table.Cell>{produto.codigo}</Table.Cell>
+                                  <Table.Cell>{produto.categoria.descricao}</Table.Cell>
+
                                   <Table.Cell>{produto.descricao}</Table.Cell>
                                   <Table.Cell>{produto.tempoEntregaMaximo}</Table.Cell>
                                   <Table.Cell>{produto.tempoEntregaMinimo}</Table.Cell>
