@@ -4,6 +4,8 @@ import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-r
 import MenuSistema from '../../MenuSistema';
 import axios from "axios";
 import { Link, useLocation  } from "react-router-dom";
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/util';
+
 
 export default function FormProduto() {
 
@@ -62,22 +64,38 @@ export default function FormProduto() {
 		.then((response) => {
             
 		     console.log('produto cadastrado com sucesso.')
-             window.location.replace("/list-produto")
+             notifySuccess('Cliente alterado com sucesso.')
+
+          
 
 		})
 		.catch((error) => {
 
 		     console.log('Erro ao incluir o produto.')
+             if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                } 
+                
 		})
     } else {
         axios.post("http://localhost:8080/api/produto" ,produtoRequest)
 		.then((response) => {
             
 		     console.log('produto cadastrado com sucesso.')
-             window.location.replace("/list-produto")
+             notifySuccess('produto cadastrado com sucesso.')
+
+            
 		})
 		.catch((error) => {
 		     console.log('Erro ao incluir o produtos.')
+             if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                } 
+                
 		})
     }
 	}

@@ -4,6 +4,8 @@ import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-r
 import MenuSistema from '../../MenuSistema';
 import axios from "axios";
 import { Link, useLocation  } from "react-router-dom";
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/util';
+
 
 export default function FormProduto() {
 
@@ -59,12 +61,20 @@ export default function FormProduto() {
 		.then((response) => {
             
 		     console.log('cupom cadastrado com sucesso.')
+             notifySuccess('Cupom alterado com sucesso.')
+
              window.location.replace("/list-cupom")
 
 		})
 		.catch((error) => {
 
 		     console.log('Erro ao incluir o cupom.')
+             if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                } 
+                
 		})
     } else {
       console.log(cupomRequest)
@@ -72,10 +82,18 @@ export default function FormProduto() {
 		.then((response) => {
             
 		     console.log('cupom cadastrado com sucesso.')
+             notifySuccess('Cupom cadastrado com sucesso.')
+
              window.location.replace("/list-cupom")
 		})
 		.catch((error) => {
 		     console.log('Erro ao incluir o cupom.')
+             if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                } 
+                
 		})
     }
 	}

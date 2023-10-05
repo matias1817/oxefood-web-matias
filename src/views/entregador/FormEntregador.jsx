@@ -3,7 +3,8 @@ import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, FormGroup, Icon } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 import axios from "axios";
- 
+import {mensagemErro, notifyError, notifySuccess } from '../../views/util/util';
+
 import { Link, useLocation} from "react-router-dom";
 
 export default function FormEntregador() {
@@ -28,6 +29,7 @@ export default function FormEntregador() {
     const [selectedEstado, setSelectedEstado] = useState('PE');
     const [ativo, setAtivo] = useState(true);
     const [idEntregador, setIdEntregador] = useState()
+    
   
 
     function formatarData(dataParam) {
@@ -135,11 +137,19 @@ export default function FormEntregador() {
         if (idEntregador != null){
             axios.put("http://localhost:8080/api/entregador/" + idEntregador, entregadorRequest)
 		.then((response) => {
-		     console.log('entregadoe cadastrado com sucesso.')
+		     console.log('entregador cadastrado com sucesso.')
+             notifySuccess('entregador alteradado com sucesso.')
+
              window.location.replace("/list-entregador")
 		})
 		.catch((error) => {
 		     console.log(error)
+             if (error.response) {
+                notifyError(error.response.data.errors[0].defaultMessage)
+                } else {
+                notifyError(mensagemErro)
+                } 
+                
 		})
 
         } else {
@@ -161,11 +171,19 @@ export default function FormEntregador() {
                 setNumero('')
                 setCep('')
                 setCpf('')
+                notifySuccess('entregador cadastrado com sucesso.')
+
                 
                 window.location.replace("/list-entregador")
 })
             .catch((error) => {
                 console.log('Erro ao incluir o um entregador.')
+                if (error.response) {
+                    notifyError(error.response.data.errors[0].defaultMessage)
+                    } else {
+                    notifyError(mensagemErro)
+                    } 
+                    
             })
         }
 
