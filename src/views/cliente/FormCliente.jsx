@@ -9,6 +9,7 @@ import axios from "axios";
 
 export default function FormCliente() {
     const [nome, setNome] = useState();
+    const [email, setEmail] = useState();
     const [idCliente, setIdCliente] = useState();
     const [cpf, setCpf] = useState();
     const [dataNascimento, setDataNascimento] = useState();
@@ -35,6 +36,7 @@ export default function FormCliente() {
                 .then((response) => {
                     setIdCliente(response.data.id)
                     setNome(response.data.nome)
+                    setEmail(response.data.email)
                     setCpf(response.data.cpf)
                     setDataNascimento(formatarData(response.data.dataNascimento))
                     setFoneCelular(response.data.foneCelular)
@@ -49,6 +51,7 @@ export default function FormCliente() {
         let clienteRequest = {
             nome: nome,
             cpf: cpf,
+            email: email,
             dataNascimento: dataNascimento,
             foneCelular: foneCelular,
             foneFixo: foneFixo
@@ -116,6 +119,15 @@ export default function FormCliente() {
                                     maxLength="100"
                                     value={nome}
                                     onChange={e => setNome(e.target.value)}
+
+                                />
+                                 <Form.Input
+                                    required
+                                    fluid
+                                    label='Email'
+                                    maxLength="100"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
 
                                 />
 

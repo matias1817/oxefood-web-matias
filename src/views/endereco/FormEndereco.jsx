@@ -77,13 +77,13 @@ export default function FormEndereco() {
 
         const clienteRequest = {
             
-            enderecoBairro: bairro,
-            enderecoCep: cep,
-            enderecoUf: selectedEstado,
-            enderecoCidade: cidade,
-            enderecoRua: rua,
-            enderecoComplemento: complemento,
-            enderecoNumero: numero
+            bairro: bairro,
+            cep: cep,
+            estado: selectedEstado,
+            cidade: cidade,
+            rua: rua,
+            complemento: complemento,
+            numero: numero
         };
 
         console.log()
